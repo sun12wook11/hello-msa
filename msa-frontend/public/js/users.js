@@ -24,6 +24,7 @@ const getUserList = async () => {
 // 가져온 회원 데이터 표시하기
 const displayUserList = (users) => {
     const userlist = document.querySelector('#user-list');
+    console.log(users);
 
     let html = '<ul>';
     for (const user of users) {
