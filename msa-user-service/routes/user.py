@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
+from fastapi.params import Depends
 from sqlalchemy.orm import Session
 
 from schema.user import User, UserBase
@@ -7,9 +8,8 @@ from service.user import register
 
 router = APIRouter()
 
-# POST 메서드를 처리하도록 수정
-@router.post('/user', response_model=UserBase)
-async def new_user(user: UserBase, db:Session=Depends(get_db)):
+@router.post('/user', response_model=User)
+async def new_user(user: UserBase, db: Session=Depends(get_db)):
     print(user)
 
     return register(db, user)

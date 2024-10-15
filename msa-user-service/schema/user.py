@@ -7,7 +7,6 @@ class UserBase(BaseModel):
     name: str
     email: str
 
-
 class User(UserBase):
     mno: int
     regdate: str

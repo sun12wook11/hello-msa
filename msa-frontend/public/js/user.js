@@ -17,26 +17,28 @@ regbtn.addEventListener('click', async (event) => {
     console.log(jsondata); // 변수 이름을 수정하여 일관성을 유지
 
     try {
-        const res = await fetch('http://localhost:8000/user', {
+        const response = await fetch('http://localhost:8000/user', {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(jsondata)
+            body: JSON.stringify({
+                userid: jsondata.userid,  // 필드에 맞춰 전달
+                name: jsondata.name,
+                email: jsondata.email,
+                passwd: jsondata.passwd,
+            }), // 생성한 JSON 데이터를 사용
         });
 
-        // 서버로의 응답 처리
-        const data = await res.json();
-
-        if (res.ok) {
-            alert('회원가입 성공');
-        } else {
-            alert(`회원가입 실패: ${data.message || '알 수 없는 오류 발생'}`); // 오류 메시지 추가
-            console.log(data.detail); // 오류의 세부 정보 출력
+        if (!response.ok) {
+            const errorData = await response.json(); // 에러 메시지 확인
+            console.error('Error response:', errorData);
+            throw new Error('Network response was not ok');
         }
-    } catch (err) {
-        alert(`회원가입 실패: ${err.message || '알 수 없는 오류 발생'}`); // 예외 발생 시 메시지
-        console.error(err); // 콘솔에 오류 정보 출력
+
+        const data = await response.json();
+        console.log(data); // 서버에서 반환한 데이터 출력
+    } catch (error) {
+        console.error('Error:', error);
     }
 });
