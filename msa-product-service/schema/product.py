@@ -1,9 +1,14 @@
 from pydantic import BaseModel
 
-
-class Product (BaseModel):
+class ProductBase(BaseModel):
     name: str
     desc: str
-    price: str
+    price: float
     maker: str
     regdate: str
+
+class Product(ProductBase):
+    pno: int
+
+    class Config:
+        from_attribute=True

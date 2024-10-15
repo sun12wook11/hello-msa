@@ -35,6 +35,6 @@ regbtn.addEventListener('click', async (event) => {
         }
     } catch (err) {
         alert(`상품 등록 실패: ${err.message || '알 수 없는 오류 발생'}`); // 예외 발생 시 메시지
-        console.error(err); // 콘솔에 오류 정보 출력
+        console.log(err); // 콘솔에 오류 정보 출력
     }
 });
