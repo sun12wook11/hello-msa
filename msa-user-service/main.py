@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from routes import product
+from routes import user
 
 app = FastAPI()
 
@@ -10,7 +10,7 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",  # 허용할 프론트엔드 도메인
     "http://127.0.0.1:3000",
-    "http://localhost:8050"
+    "http://localhost:8000",
 ]
 
 app.add_middleware(
@@ -21,8 +21,9 @@ app.add_middleware(
 )
 
 # 라우터 추가
-app.include_router(product.router)
+app.include_router(user.router)
+
 
 
 if __name__ == "__main__":
-    uvicorn.run('main:app', port=8050, reload=True)
+    uvicorn.run('main:app', port=8000, reload=True)
