@@ -12,3 +12,12 @@ class Product(ProductBase):
 
     class Config:
         from_attribute=True
+
+class ProductList(BaseModel):
+    pno: int
+    name: str
+    price: float
+    regdate: str
+
+    class Config:
+        from_attributes=True
