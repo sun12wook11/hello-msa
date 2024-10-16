@@ -1,6 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
+/* not found page. */
+router.get('/notfound', function(req, res, next) {
+  res.sendFile(__dirname + '/views/notfound.html')
+});
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   //res.json({msg: 'Hello, world!!'})
@@ -30,6 +36,11 @@ router.get('/product', function(req, res, next) {
 /*products registration*/
 router.get('/products', function(req, res, next) {
   res.sendFile(__dirname + '/views/products.html');
+});
+
+/*product one*/
+router.get('/product/:pno', function(req, res, next) {
+  res.sendFile(__dirname + '/views/productone.html');
 });
 
 

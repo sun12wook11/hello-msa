@@ -21,3 +21,14 @@ class ProductList(BaseModel):
 
     class Config:
         from_attributes=True
+
+# productone 리딩용
+class ProductOne(BaseModel):
+    pno: int
+    name: str
+    price: float
+    desc : str
+    regdate: str
+
+    class Config:
+        from_attributes=True

@@ -17,3 +17,7 @@ def register(db: Session, product: ProductBase):
 
 def productlist(db: Session):
     return db.query(Product.pno, Product.name, Product.price, Product.regdate ).all()
+
+
+def productone(db: Session, pno: int):
+    return db.query(Product).filter(Product.pno == pno).first()
