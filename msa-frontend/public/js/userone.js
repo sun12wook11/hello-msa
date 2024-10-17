@@ -1,4 +1,5 @@
-window.addEventListener('DOMContentLoaded', async () => {
+// 페이지 완전하게 로드시 자동으로 실행
+document.addEventListener('DOMContentLoaded', async () => {
     let idx = location.href.lastIndexOf('/');
     let mno = location.href.substring(idx + 1);
 
@@ -11,21 +12,17 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-
 const getUserOne = async (mno) => {
     let url = `http://127.0.0.1:8000/user/${mno}`;
     const res = await fetch(url);
-    if (res.status === 404) {
-        location.href = '/notfound'
-    } else if (res.ok){
+    if (res.ok) {
         data = await res.json();
         return data;
     } else {
-        throw new Error('유저 상세 정보 fetch 오류~~!!'); // 오류 메시지 변경
+        throw new Error('회원 상세 정보 fetch 오류 발생!!');
     }
 }
 
-// 가져온 회원 데이터 표시하기
 const displayUserOne = (user) => {
     const userone = document.querySelector('#userone');
     console.log(user);
@@ -37,8 +34,7 @@ const displayUserOne = (user) => {
     회원이름 : ${user.name},
     회원이메일 : ${user.email},
     회원가입일 : ${user.regdate}
-    
-    </li>`
+    </li>`;
     html += '</ul>';
 
     userone.innerHTML = html;

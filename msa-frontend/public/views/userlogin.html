@@ -1,103 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>회원 로그인</title>
-  <style>
-    /* 기본 설정: margin과 padding 제거 및 박스 크기 설정 */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to right, #6a11cb, #2575fc);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .container {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      width: 400px;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 24px;
-      color: #333;
-    }
-    .form-group {
-      margin-bottom: 20px;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-      color: #333;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      transition: border-color 0.3s;
-      font-size: 16px;
-    }
-    .form-group input:focus {
-      border-color: #6a11cb;
-      outline: none;
-    }
-    .form-group button {
-      width: 100%;
-      padding: 10px;
-      background-color: #6a11cb;
-      border: none;
-      color: white;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      font-size: 16px;
-    }
-    .form-group button:hover {
-      background-color: #2575fc;
-    }
-    .footer {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 14px;
-      color: #555;
-    }
-  </style>
 </head>
 <body>
-<div class="container">
-  <h1>회원 로그인</h1>
-  <form name="userform">
-    <div class="form-group">
-      <label for="userid">아이디</label>
-      <input type="text" id="userid" name="userid" required placeholder="아이디를 입력하세요">
-    </div>
-    <div class="form-group">
-      <label for="passwd">비밀번호</label>
-      <input type="password" id="passwd" name="passwd" required placeholder="비밀번호를 입력하세요">
-    </div>
-    <div class="form-group">
-      <button type="submit" id="loginbtn">로그인</button>
-    </div>
-  </form>
-  <div class="footer">
-    아직 회원이 아니신가요? <a href="#" style="color: #6a11cb;">회원가입</a>
-  </div>
-</div>
+<h1>회원 로그인</h1>
+<form name="loginfrm">
+  <div>아이디 : <input type="text" name="userid" id="userid"></div>
+  <div>비밀번호 : <input type="password" name="passwd" id="passwd"></div>
+  <div><button type="button" id="loginbtn">로그인</button></div>
+</form>
 <hr>
+
+<h2>마이크로 서비스 기반 로그인</h2>
+<h3>프론트엔드와 백엔드로 구성된 웹 앱에서 구현 가능한 로그인 방법</h3>
+<ul>
+  <li>JWT (json web token) 기반 인증<br>
+    로그인 여부를 서버에 저장하지 않아 부하가 적음.
+    토큰 관리에 주의 필요!</li>
+
+  <li>세션 기반 인증<br>
+    로그인 여부를 서버에 저장. 서버 부하가 클수 있음.</li>
+
+  <li>OAuth 2.0<br>
+    JWT의 오픈소스 버젼 (업계 표준화), 구현 복잡</li>
+
+  <li>소셜 로그인 (OAuth의 한 형태)<br>
+    기존의 소셜 미디어 계정을 사용해서 로그인 처리,
+    새로운 계정 생성 없이 로그인 가능, 대형 플랫폼이 인증 보증</li>
+
+  <li>2단계 인증(2FA) + JWT<br>
+    인증시 2가지 요소를 이용해서 보안을 강화하는 방식,
+    즉, 비밀번호 외에 다른 보안요소(일회용코드)를 사용해서 인증을 진행,
+    보통, 로그인시 일회용 코드를 sms나 이메일로 전송</li>
+</ul>
+<hr>
+<h3>백엔드에서 생성한 토큰을 프론트엔드에 저장하기</h3>
+<ul>
+  <li>로컬 스토리지 : 간단하고 사용하기 쉬움, 탭/창을 닫아도 데이터 유지,
+    XSS 공격에 취약</li>
+  <li>세션 스토리지(추천) : 간단하고 사용하기 쉬움, 탭/창을 닫으면 데이터 삭제,
+    XSS 공격에 취약</li>
+  <li>쿠키(추천)나 인메모리 : 자바스크립트에서 접근 불가</li>
+</ul>
 
 <script src="/js/userlogin.js"></script>
 </body>
