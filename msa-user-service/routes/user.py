@@ -14,8 +14,10 @@ router = APIRouter()
 
 @router.post('/user', response_model=User)
 async def new_user(user: UserBase, db: Session=Depends(get_db)):
+    user = register(db, user)
     print(user)
-    return register(db, user)
+    return User.model_validate(user)
+
 
 @router.get('/users', response_model=list[UserList])
 async def list_users(db: Session=Depends(get_db)):
