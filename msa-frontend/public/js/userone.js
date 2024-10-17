@@ -15,11 +15,13 @@ window.addEventListener('DOMContentLoaded', async () => {
 const getUserOne = async (mno) => {
     let url = `http://127.0.0.1:8000/user/${mno}`;
     const res = await fetch(url);
-    if (res.ok) {
+    if (res.status === 404) {
+        location.href = '/notfound'
+    } else if (res.ok){
         data = await res.json();
         return data;
     } else {
-        throw new Error('회원 상세 정보 fetch 오류~~!!');
+        throw new Error('유저 상세 정보 fetch 오류~~!!'); // 오류 메시지 변경
     }
 }
 

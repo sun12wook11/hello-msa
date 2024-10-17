@@ -28,6 +28,11 @@ router.get('/user/:mno', function(req, res, next) {
   res.sendFile(__dirname + '/views/userone.html');
 });
 
+/*user login*/
+router.get('/loginuser', function(req, res, next) {
+  res.sendFile(__dirname + '/views/userlogin.html');
+});
+
 /*product registration*/
 router.get('/product', function(req, res, next) {
   res.sendFile(__dirname + '/views/product.html');
@@ -42,6 +47,7 @@ router.get('/products', function(req, res, next) {
 router.get('/product/:pno', function(req, res, next) {
   res.sendFile(__dirname + '/views/productone.html');
 });
+
 
 
 module.exports = router;

@@ -1,9 +1,12 @@
-from fastapi import APIRouter
+from typing import Optional
+
+from fastapi import APIRouter, HTTPException
 from fastapi.params import Depends
 from jinja2.nodes import List
 from sqlalchemy.orm import Session
 
-from schema.user import User, UserBase, UserList, UserOne
+from schema.user import User, UserBase, UserList, UserOne, Token, UserLogin
+from service.auth import userlogin
 from service.database import get_db
 from service.user import register, userlist, userone
 
@@ -26,4 +29,21 @@ async def list_users(db: Session=Depends(get_db)):
 @router.get('/user/{mno}', response_model=UserOne)
 async def user_one(mno: int, db: Session=Depends(get_db)):
     user = userone(db, mno)
+
+    # 유저 조회 안되면 404 전달
+    if user is None:
+        raise HTTPException(404, "Product not found")
+
     return UserOne.model_validate(user)
+
+
+@router.post('/userlogin', response_model=Optional[Token])
+async def user_login(login: UserLogin, db: Session=Depends(get_db)):
+    print(login)  # 요청 데이터 출력
+    user = userlogin(login, db)
+
+    # 유저 조회 안되면 404 전달
+    if user is None:
+        raise HTTPException(401, "Product not found")
+
+    return user
