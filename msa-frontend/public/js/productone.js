@@ -1,43 +1,47 @@
-window.addEventListener('DOMContentLoaded', async () => {
-    let idx = location.href.lastIndexOf('/');
-    let pno = location.href.substring(idx + 1); // 'mno' -> 'pno'
+// 페이지 완전 로드시 자동으로 실행
+document.addEventListener('DOMContentLoaded', async () => {
+    //console.log(location.pathname.split('/').pop());
+    let pno = location.pathname.split('/').pop();
 
     try {
-        const product = await getProductOne(pno); // 'user' -> 'product'
-        displayProductOne(product); // 'displayUserOne' -> 'displayProductOne'
+        const product = await getProductOne(pno);
+        displayProductOne(product);
     } catch (e) {
         console.log(e);
-        alert('상품 상세 정보 조회 실패!'); // 알림 메시지 변경
+        //alert('상품 상세 조회 실패!');
     }
 });
 
-const getProductOne = async (pno) => { // 'getUserOne' -> 'getProductOne'
-    let url = `http://127.0.0.1:8050/product/${pno}`; // 경로 수정
+const getProductOne = async (pno) => {
+    let url = `http://127.0.0.1:8050/product/${pno}`;
     const res = await fetch(url);
+
     if (res.status === 404) {
-        location.href = '/notfound'
-    } else if (res.ok){
-        data = await res.json();
+        location.href = '/notfound';
+    } else if (res.status === 200) {  // res.ok
+        const data = await res.json();
         return data;
     } else {
-        throw new Error('상품 상세 정보 fetch 오류~~!!'); // 오류 메시지 변경
+        throw new Error('상품 상세 정보 fetch 실패!');
     }
-}
+};
 
-// 가져온 상품 데이터 표시하기
-const displayProductOne = (product) => { // 'displayUserOne' -> 'displayProductOne'
-    const productone = document.querySelector('#productone'); // 'userone' -> 'productone'
+const displayProductOne = (product) => {
+    const productone = document.querySelector('#productone');
     console.log(product);
 
     let html = '<ul>';
     html += `<li>
-    상품 번호 : ${product.pno}, 
-    상품 이름 : ${product.name},
-    상품 가격 : ${product.price}
-    상품 설명 : ${product.description}, 
-    생성일 : ${product.regdate} 
-    </li>`
+        상품번호 : ${product.pno},
+        상품이름 : ${product.name},
+        상품상세설명 : ${product.desc},
+        상품가격 : ${product.price},
+        상품제조사 : ${product.maker},
+        상품등록일 : ${product.regdate}
+    </li>`;
     html += '</ul>';
 
-    productone.innerHTML = html; // 'userone' -> 'productone'
+    productone.innerHTML = html;
 };
+
+

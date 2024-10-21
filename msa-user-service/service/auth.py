@@ -11,7 +11,7 @@ from schema.user import UserLogin, Token
 
 # JWT 로그인 처리
 def userlogin(login: UserLogin, db: Session):
-    loginuser = db.query(User) \
+    loginuser = db.query(User)\
         .filter(User.userid == login.userid).first()
 
     if loginuser is None:  # 아이디가 일치하지 않으면
@@ -46,7 +46,7 @@ def hashed_password(passwd):
 #             exp(유효기간), iat(발행시간), jti(토큰 고유식별자)
 # expire_delta : 토큰 유지 기간 (기본 30분)
 def generate_access_token(userid: str,
-                          expire_delta: Optional[timedelta]=None):
+              expire_delta: Optional[timedelta]=None):
     # 토큰 생성시 사용할 비밀키
     SECRETKEY = 'Hello, World!! 13579'
 
@@ -60,6 +60,9 @@ def generate_access_token(userid: str,
     to_encode = {'iss': 'http://127.0.0.1:3000', 'sub': userid,
                  'exp': expire, 'aud': 'http://127.0.0.1:3000'} # jwt 페이로드
     encode_jwt = jwt.encode(to_encode, SECRETKEY,
-                            algorithm='HS256')
+                algorithm='HS256')
 
     return encode_jwt
+
+
+

@@ -13,19 +13,21 @@ regbtn.addEventListener('click', async () => {
     console.log(jsondata);
 
     const res = await fetch('http://127.0.0.1:8000/user',
-        {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(jsondata)
-        })
-        // 서버로의 응답 처리
-        .then(res => {
-            alert('회원가입 성공!!');
-        }).catch((error) => {
-            alert('회원가입 실패!!');
-        });
+    {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsondata)
+    })
+    // 서버로의 응답 처리
+    .then(res => {
+        alert('회원가입 성공!!');
+    }).catch((error) => {
+        alert('회원가입 실패!!');
+    });
 
 });
+
+

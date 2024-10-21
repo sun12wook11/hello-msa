@@ -31,15 +31,16 @@ router.get('/loginuser', function(req, res, next) {
   res.sendFile(__dirname + '/views/userlogin.html')
 });
 
-/* secure page access*/
+/* secure page access */
 router.get('/secure', function(req, res, next) {
   res.sendFile(__dirname + '/views/secure.html')
 });
 
-/* logout page access*/
-router.get('/logout', function(req, res, next) {
-  sessionStorage.removeItem('');
-});
+/* logout - session remove */
+// router.get('/logout', function(req, res, next) {
+//  sessionStorage.removeItem('token');
+//  location.href = '/';
+// });
 
 /* product registration */
 router.get('/product', function(req, res, next) {
@@ -55,5 +56,17 @@ router.get('/products', function(req, res, next) {
 router.get('/product/:pno', function(req, res, next) {
   res.sendFile(__dirname + '/views/productone.html')
 });
+
+/* naver api login */
+router.get('/login/naver', function(req, res, next) {
+  res.sendFile(__dirname + '/views/naverlogin.html')
+});
+
+/* naver api callback */
+router.get('/callback/naver', function(req, res, next) {
+  res.sendFile(__dirname + '/views/callbacknaver.html')
+});
+
+
 
 module.exports = router;
