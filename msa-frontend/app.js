@@ -2,11 +2,18 @@ let createError = require('http-errors');
 let express = require('express');
 let path = require('path');
 // nodejs에서 제공하는 세션관리 패키지
-var session = require('express-session')
+var session = require('express-session');
+const handlebars = require('express-handlebars');
 let port = 3000;
 
 let indexRouter = require('./public/index');
 let naverRouter = require('./public/naver');
+
+// handlebars설정
+const hbs = handlebars.create({});
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'public/handlebars'));
 
 let app = express();
 

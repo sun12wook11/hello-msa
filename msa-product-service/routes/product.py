@@ -41,3 +41,6 @@ async def product_delete(pno: int, db: Session=Depends(get_db)):
     result = productdelete(db, pno)
 
     return result
+
+
+# setattr 그 (대상, 키, 값) 실행중에 특정 객체의 키를 기분으로 값을 수정함
