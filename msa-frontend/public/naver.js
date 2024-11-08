@@ -63,17 +63,17 @@ router.get('/api/callback2', function(req, res, next) {
         'Content-Type': 'application/json'
     };
     axios.get(api_url, { headers: headers })
-    .then(response => {
-        data = response.data;
-        console.log(data.access_token);
-        //sessionStorage.setItem('token', data.access_token); // 사용불가!
-        // 즉, 현재 코드는 서버환경에서 실행 중이고,
-        // sessionStorage는 클라이언트측 환경에서 제공하는 기능임
-        // 따라서, 서버환경에서 제공하는 세션에 토큰 저장
-        req.session.token = data.access_token;
+        .then(response => {
+            data = response.data;
+            console.log(data.access_token);
+            //sessionStorage.setItem('token', data.access_token); // 사용불가!
+            // 즉, 현재 코드는 서버환경에서 실행 중이고,
+            // sessionStorage는 클라이언트측 환경에서 제공하는 기능임
+            // 따라서, 서버환경에서 제공하는 세션에 토큰 저장
+            req.session.token = data.access_token;
 
-        res.redirect('/');
-    });
+            res.redirect('/');
+        });
 });
 
 /* secure2 page access */

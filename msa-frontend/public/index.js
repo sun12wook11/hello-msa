@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-//index.js에 REST API 주소 등록
+// REST API 서버 주소 등록
 const usersrvURL = process.env.USER_SRV_URL || '127.0.0.1';
 const productsrvURL = process.env.PRODUCT_SRV_URL || '127.0.0.1';
 
@@ -12,7 +12,9 @@ router.get('/notfound', function(req, res, next) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', {layout: false, usersrvURL: usersrvURL, productsrvURL: productsrvURL});
+  //res.sendFile(__dirname + '/views/index.html')
+  res.render('index', { layout: false,
+    usersrvURL: usersrvURL, productsrvURL: productsrvURL });
 });
 
 /* user registration */
@@ -60,6 +62,13 @@ router.get('/products', function(req, res, next) {
 router.get('/product/:pno', function(req, res, next) {
   res.sendFile(__dirname + '/views/productone.html')
 });
+
+/* product update */
+router.get('/product_put/:pno', function(req, res, next) {
+  res.sendFile(__dirname + '/views/product_put.html')
+});
+
+// ---
 
 /* naver api login */
 router.get('/login/naver', function(req, res, next) {
